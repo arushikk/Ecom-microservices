@@ -2,6 +2,7 @@ package com.ecom.prodservice.productservicev1.service;
 
 
 import com.ecom.prodservice.productservicev1.dto.ProductRequest;
+import com.ecom.prodservice.productservicev1.dto.ProductResponse;
 import com.ecom.prodservice.productservicev1.model.Product;
 import com.ecom.prodservice.productservicev1.repository.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -27,13 +28,31 @@ public class ProductService {
                 .price(productRequest.getPrice())
                 .build();
         log.info("{} {} prduct saved" , product.getId() , product.getName() );
-        return productRepository.save(product);
+       return  productRepository.save(product);
 
 
     }
 
-    public List<Product> getALlProducts() {
-        return productRepository.findAll();
+    public List<ProductResponse> getALlProducts() {
+
+
+
+        List<Product> products = productRepository.findAll();
+
+        return products.stream().map(this::mapToProductResponse).toList();
+
+    }
+
+    private ProductResponse mapToProductResponse(Product product) {
+
+        ProductResponse response = ProductResponse.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .description(product.getDescription())
+                .price(product.getPrice())
+                     .build();
+
+        return response;
     }
 
     public Product getProductByName(String name) {

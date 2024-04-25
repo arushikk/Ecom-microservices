@@ -2,6 +2,7 @@ package com.ecom.prodservice.productservicev1.controller;
 
 
 import com.ecom.prodservice.productservicev1.dto.ProductRequest;
+import com.ecom.prodservice.productservicev1.dto.ProductResponse;
 import com.ecom.prodservice.productservicev1.model.Product;
 import com.ecom.prodservice.productservicev1.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class ProductController {
 
     @GetMapping("/getAll")
     @ResponseStatus(HttpStatus.OK)
-    public List<Product> getAllProducts(){
+    public List<ProductResponse> getAllProducts(){
         return productService.getALlProducts();
     }
 
